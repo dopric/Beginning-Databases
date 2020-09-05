@@ -43,6 +43,18 @@ namespace BDAspCoreMvc.Controllers
             return View(employee);
         }
 
+        [HttpPost]
+        public IActionResult Edit(Employee employee)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(employee);
+            }
+            _dbContext.Employees.Update(employee);
+            _dbContext.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
         [HttpGet]
         public IActionResult Delete(int id)
         {
@@ -53,6 +65,28 @@ namespace BDAspCoreMvc.Controllers
         public IActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Employee model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            _dbContext.Employees.Add(model);
+            _dbContext.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public IActionResult Delete(Employee model)
+        {
+            var emp = _dbContext.Employees.Find(model.EmployeeID);
+            // should check if entry exists
+            _dbContext.Employees.Remove(emp);
+            _dbContext.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
