@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using BDData;
 using BDData.Security;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +18,8 @@ namespace BDAspCoreMvc
 {
     public class Startup
     {
+        RoleManager<AppRole> _roleManager;
+        UserManager<AppUser> _userManager;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -48,8 +52,11 @@ namespace BDAspCoreMvc
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
+            UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
         {
+            _userManager = userManager;
+            _roleManager = roleManager;
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -73,6 +80,11 @@ namespace BDAspCoreMvc
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            Task.Run(async () =>
+            {
+                await DbInitializer.Seed(_userManager, _roleManager);
             });
         }
     }

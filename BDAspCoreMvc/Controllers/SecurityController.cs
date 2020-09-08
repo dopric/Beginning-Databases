@@ -25,7 +25,7 @@ namespace BDAspCoreMvc.Controllers
 
         public IActionResult Index() { return View(); }
 
-        public IActionResult SingIn() {
+        public IActionResult SignIn() {
             var model = new SignIn();
             return View(model); 
         }
@@ -33,6 +33,11 @@ namespace BDAspCoreMvc.Controllers
         [HttpPost]
         public IActionResult SignIn(SignIn model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            return RedirectToAction("Index", "Employees");
             throw new NotImplementedException("Sign in is not implemented yet");
         }
 
@@ -45,6 +50,11 @@ namespace BDAspCoreMvc.Controllers
         [HttpPost]
         public IActionResult SignUp(Register model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            return RedirectToAction("Index", "Employees");
             throw new NotImplementedException();
         }
     }

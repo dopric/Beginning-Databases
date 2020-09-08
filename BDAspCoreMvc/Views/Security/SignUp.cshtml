@@ -1,32 +1,39 @@
 ﻿@model BDData.Security.Register
 
 <h1>Create New User Account</h1>
-<form asp-controller="Security" asp-action="Register" method="post">
+<form asp-controller="Security" asp-action="SignUp" method="post">
+    <div asp-validation-summary="All" class="message"></div>
     <div>
         <div class="row form-group">
             <label asp-for="UserName" class="col-form-label col-4"></label>
-            <input asp-for="UserName" class="form-control col-8" />
+            <div class=" col-8">
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>            
         </div>
         <div class="row form-group">
             <label asp-for="Email" class="col-form-label col-4"></label>
             <input asp-for="Email" class="form-control col-8" />
+            <span asp-validation-for="Email" class="text-danger"></span>
         </div>
         <div class="row form-group">
             <label asp-for="Password" class="col-form-label col-4"></label>
             <input asp-for="Password" class="form-control col-8" />
+            <span asp-validation-for="Password"></span>
         </div>
         <div class="row form-group">
             <label asp-for="ConfirmPassword" class="col-form-label col-4"></label>
             <input asp-for="ConfirmPassword" class="form-control col-8" />
+            <span asp-validation-for="ConfirmPassword"></span>
         </div>
         <div class="row">
-            <button type="submit" class="btn btn-outline-primary col-4 offset-8" >Submit</button>
+            <button type="submit" class="btn btn-outline-primary col-4 offset-8">Submit</button>
         </div>
     </div>
-    
-    <div asp-validation-summary="All" class="message"></div>
-        have already Account? &nbsp;
-        <a asp-controller="Security" asp-action="SignIn">
-            Sign in
-        </a>
+
+
+    have already Account? &nbsp;
+    <a asp-controller="Security" asp-action="SignIn">
+        Sign in
+    </a>
 </form>
