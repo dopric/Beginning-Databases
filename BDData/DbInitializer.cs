@@ -14,7 +14,7 @@ namespace BDData
         {
             if(!await manager.RoleExistsAsync(roleName))
             {
-                await manager.CreateAsync(new AppRole(){Name=roleName, Description=description);
+                await manager.CreateAsync(new AppRole() { Name = roleName, Description = description });
             }
         }
         public async static Task Seed(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)

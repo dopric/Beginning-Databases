@@ -55,7 +55,7 @@ namespace BDAspCoreMvc.Controllers
                 return View(model);
             }
             return RedirectToAction("Index", "Employees");
-            throw new NotImplementedException();
+            
         }
     }
 }
