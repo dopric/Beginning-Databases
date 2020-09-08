@@ -10,30 +10,43 @@ namespace BDData
     public static class DbInitializer
     {
 
-        private async static Task CheckRoleAsync(RoleManager<AppRole> manager, string roleName, string description="not set")
+        private  static void CheckRole(RoleManager<AppRole> manager, string roleName, string description="not set")
         {
-            if(!await manager.RoleExistsAsync(roleName))
+            try
             {
-                await manager.CreateAsync(new AppRole() { Name = roleName, Description = description });
+                var found =  manager.RoleExistsAsync(roleName).Result;
+                if (!found)
+                {
+                     var res = manager.CreateAsync(new AppRole() { Name = roleName, Description = description }).Result;
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
             }
         }
-        public async static Task Seed(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
+        public static void Seed(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
         {
             foreach (var role in new List<string> { "admin", "free" })
             {
-                await CheckRoleAsync(roleManager, role);
+                 CheckRole(roleManager, role);
             }
             if (userManager.FindByNameAsync("admin").Result == null)
             {
-                IdentityResult result = await userManager.CreateAsync(new AppUser()
+                IdentityResult result =  userManager.CreateAsync(new AppUser()
                 {
                     UserName = "admin",
                     Email = "opric.dragan@gmail.com"
-                }, "12345");
+                }, "Emi99sgdo$").Result;
+
                 if (result.Succeeded)
                 {
-                    AppUser user = await userManager.FindByNameAsync("admin");
-                    await userManager.AddToRoleAsync(user, "admin");
+                    AppUser user =  userManager.FindByNameAsync("admin").Result;
+                     var res = userManager.AddToRoleAsync(user, "admin").Result;
+                }
+                else
+                {
+                    throw new Exception("USer can not be created");
                 }
             }
         }

@@ -32,14 +32,24 @@ namespace BDAspCoreMvc.Controllers
         }
 
         [HttpPost]
-        public IActionResult SignIn(SignIn model)
+        public async Task<IActionResult> SignIn(SignIn model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            return RedirectToAction("Index", "Employees");
-            throw new NotImplementedException("Sign in is not implemented yet");
+           if (await _userManager.FindByNameAsync(model.UserName) == null)
+            {
+                ModelState.AddModelError("", "User can not be found");
+                return View(model);
+            }
+            Microsoft.AspNetCore.Identity.SignInResult result =await _singInManager.PasswordSignInAsync(model.UserName, model.Password, false, true);
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError("", "Unable to login, try again");
+                return View(model);
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult SignUp()
@@ -75,6 +85,13 @@ namespace BDAspCoreMvc.Controllers
 
             return RedirectToAction("Index", "Employees");
             
+        }
+
+        [HttpPost]
+        public IActionResult SignOut()
+        {
+            _singInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

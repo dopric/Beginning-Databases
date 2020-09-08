@@ -82,10 +82,9 @@ namespace BDAspCoreMvc
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            Task.Run(async () =>
-            {
-                await DbInitializer.Seed(_userManager, _roleManager);
-            });
+            
+            DbInitializer.Seed(_userManager, _roleManager);
+          
         }
     }
 }
