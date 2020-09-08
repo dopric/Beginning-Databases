@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BDData.Security;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace BDAspCoreMvc.Controllers
 {
@@ -48,12 +49,30 @@ namespace BDAspCoreMvc.Controllers
         }
 
         [HttpPost]
-        public IActionResult SignUp(Register model)
+        public async Task<IActionResult> SignUp(Register model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
+            var existingUser = await _userManager.FindByNameAsync(model.UserName);
+            if (existingUser != null)
+            {
+                ModelState.AddModelError("existingUser", "Username is already taken");
+                return View(model);
+            }
+            var userResult = await _userManager.CreateAsync(new AppUser { 
+            UserName = model.UserName,
+            Email = model.UserName}, model.Password);
+
+            if (!userResult.Succeeded)
+            {
+                ModelState.AddModelError("", "user could not be created");
+            }
+            var user = await _userManager.FindByNameAsync(model.UserName);
+            await _userManager.AddToRoleAsync(user, "free");
+            await _singInManager.SignInAsync(user, false);
+
             return RedirectToAction("Index", "Employees");
             
         }
