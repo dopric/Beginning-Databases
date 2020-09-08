@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BDData;
+using BDData.Security;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,6 +31,19 @@ namespace BDAspCoreMvc
             {
                 options.UseSqlServer(Configuration.GetConnectionString("NorthwindDb"));
             });
+
+            services.AddDbContext<AppIdentityDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("IdentityDb"));
+            });
+            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AppIdentityDbContext>();
+
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.LoginPath = "/security/signin";
+                config.AccessDeniedPath = "security/accessdenied";
+            });
+            
             services.AddControllersWithViews();
         }
 
@@ -51,6 +65,7 @@ namespace BDAspCoreMvc
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
