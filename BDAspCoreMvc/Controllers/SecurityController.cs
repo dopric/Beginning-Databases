@@ -25,6 +25,15 @@ namespace BDAspCoreMvc.Controllers
 
         public IActionResult Index() { return View(); }
 
-        public IActionResult SingIn() { return View(); }
+        public IActionResult SingIn() {
+            var model = new SignIn();
+            return View(model); 
+        }
+
+        [HttpPost]
+        public IActionResult SignIn(SignIn model)
+        {
+            throw new NotImplementedException("Sign in is not implemented yet");
+        }
     }
 }

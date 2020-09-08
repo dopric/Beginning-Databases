@@ -20,8 +20,4 @@
     <ProjectReference Include="..\BDData\BDData.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Security\" />
-  </ItemGroup>
-
 </Project>
