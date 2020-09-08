@@ -41,7 +41,7 @@ namespace BDAspCoreMvc
             services.ConfigureApplicationCookie(config =>
             {
                 config.LoginPath = "/security/signin";
-                config.AccessDeniedPath = "security/accessdenied";
+                config.AccessDeniedPath = "/security/accessdenied";
             });
             
             services.AddControllersWithViews();

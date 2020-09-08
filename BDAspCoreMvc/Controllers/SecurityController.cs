@@ -35,5 +35,17 @@ namespace BDAspCoreMvc.Controllers
         {
             throw new NotImplementedException("Sign in is not implemented yet");
         }
+
+        public IActionResult SignUp()
+        {
+            var model = new Register();
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult SignUp(Register model)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

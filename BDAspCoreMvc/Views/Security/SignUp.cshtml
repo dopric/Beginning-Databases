@@ -1,0 +1,32 @@
+﻿@model BDData.Security.Register
+
+<h1>Create New User Account</h1>
+<form asp-controller="Security" asp-action="Register" method="post">
+    <div>
+        <div class="row form-group">
+            <label asp-for="UserName" class="col-form-label col-4"></label>
+            <input asp-for="UserName" class="form-control col-8" />
+        </div>
+        <div class="row form-group">
+            <label asp-for="Email" class="col-form-label col-4"></label>
+            <input asp-for="Email" class="form-control col-8" />
+        </div>
+        <div class="row form-group">
+            <label asp-for="Password" class="col-form-label col-4"></label>
+            <input asp-for="Password" class="form-control col-8" />
+        </div>
+        <div class="row form-group">
+            <label asp-for="ConfirmPassword" class="col-form-label col-4"></label>
+            <input asp-for="ConfirmPassword" class="form-control col-8" />
+        </div>
+        <div class="row">
+            <button type="submit" class="btn btn-outline-primary col-4 offset-8" >Submit</button>
+        </div>
+    </div>
+    
+    <div asp-validation-summary="All" class="message"></div>
+        have already Account? &nbsp;
+        <a asp-controller="Security" asp-action="SignIn">
+            Sign in
+        </a>
+</form>
