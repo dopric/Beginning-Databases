@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BDData;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BDAspCoreMvc.Controllers
 {
+    [Authorize(Roles="admin")]
     public class EmployeesController : Controller
     {
         private readonly AppDbContext _dbContext;
@@ -14,6 +16,7 @@ namespace BDAspCoreMvc.Controllers
         {
             _dbContext = db;
         }
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var employees = (from e in _dbContext.Employees
@@ -44,6 +47,7 @@ namespace BDAspCoreMvc.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(Employee employee)
         {
             if (!ModelState.IsValid)
@@ -68,6 +72,7 @@ namespace BDAspCoreMvc.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Employee model)
         {
             if (!ModelState.IsValid)
@@ -80,6 +85,7 @@ namespace BDAspCoreMvc.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(Employee model)
         {
             var emp = _dbContext.Employees.Find(model.EmployeeID);
