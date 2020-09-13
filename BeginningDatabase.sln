@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BDAspCoreMvc", "BDAspCoreMv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDWebApi", "BDWebApi\BDWebApi.csproj", "{05E43A98-070F-4490-B21D-83F8F5940570}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDMvcClient", "BDMvcClient\BDMvcClient.csproj", "{0BCDBF6D-FFC2-4945-8F84-D709D5370968}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{05E43A98-070F-4490-B21D-83F8F5940570}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05E43A98-070F-4490-B21D-83F8F5940570}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05E43A98-070F-4490-B21D-83F8F5940570}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BCDBF6D-FFC2-4945-8F84-D709D5370968}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BCDBF6D-FFC2-4945-8F84-D709D5370968}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BCDBF6D-FFC2-4945-8F84-D709D5370968}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BCDBF6D-FFC2-4945-8F84-D709D5370968}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

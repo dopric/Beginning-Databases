@@ -33,12 +33,20 @@ namespace BDWebApi.Controllers
         [HttpPost]
         public void Post(Employee employee)
         {
-            // todo
+            if (ModelState.IsValid)
+            {
+                // todo
+            }
         }
 
         [HttpPut("{id}")]
         public void Update(int id, Employee data)
         {
+
+            if (ModelState.IsValid)
+            {
+
+            }
             // TODO
         }
 
